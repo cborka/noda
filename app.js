@@ -16,14 +16,21 @@ app.set('view engine', 'hbs');
 
 
 // create a write stream (in append mode)
-var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' }) 
  
 // setup the logger
 //app.use(morgan('combined', { stream: accessLogStream }))
 
-app.use(logger('combined'));
-//app.use(logger('dev'));
-app.use(logger(':date[iso] :remote-addr :remote-user :method :url :status :response-time ms - :res[content-length] = :referrer', { stream: accessLogStream }));
+//app.use(logger('combined'));
+app.use(logger('dev'));
+app.use(logger(':date[iso] :remote-addr :remote-user :method :url :status :response-time ms - :res[content-length] =', { stream: accessLogStream }));
+// app.use(logger(':date[iso] :remote-addr :remote-user :method :url :status :response-time ms - :res[content-length] = :referrer', { stream: accessLogStream }));
+
+
+console.log(__filename);
+
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
