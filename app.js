@@ -4,14 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var fs = require('fs')
 var logger = require('morgan');
-var mylogger = require('./lib/logger');
+var myLogger = require('./lib/logger');
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
-app.use(mylogger);
+app.use(myLogger.log1);
+
+//let sayHi = myLogger.log2.bind(myLogger);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,19 +33,22 @@ app.use(logger('dev'));
 app.use(logger(':date[iso] :remote-addr :remote-user :method :url :status :response-time ms - :res[content-length] =', { stream: accessLogStream }));
 // app.use(logger(':date[iso] :remote-addr :remote-user :method :url :status :response-time ms - :res[content-length] = :referrer', { stream: accessLogStream }));
 
-
-console.log(__filename);
-
-
-
+//console.log(__filename);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(myLogger.log3);
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use(myLogger.log3);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
