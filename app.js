@@ -5,8 +5,8 @@ var cookieParser = require('cookie-parser');
 var fs = require('fs')
 var logger = require('morgan');
 var myLogger = require('./lib/logger');
-
-
+require('dotenv').config();
+// console.log(process.env);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -47,8 +47,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use(myLogger.log3);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

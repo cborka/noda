@@ -1,4 +1,4 @@
-import pkg from 'pg';
+var pkg = require('pg');
 const { Client } = pkg;
 
 const DB_HOST = "127.0.0.1";
@@ -16,7 +16,7 @@ const DB_PASSWORD = "hello1";
 
 console.log('DB_USER = ' + DB_USER);
 
-export const client = new Client({
+const client = new Client({
   host: DB_HOST,
   database: DB_NAME,
   user: DB_USER,
@@ -65,3 +65,5 @@ export const client = new Client({
 //   .catch((err) => console.error('error during disconnection', err.stack));
 // }, 5000
 // );
+
+module.exports = client;
